@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.shiro.web.filter.authc.x509;
+package org.apache.jena.fuseki.shiro.web.filter.authc.x509;
 
 import java.security.cert.X509Certificate;
 import java.util.regex.Matcher;
@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Obtains the principal from a certificate using a regular expression match against the Subject (as returned by a call
- * to {@link X509Certificate#getSubjectDN()}).
+ * to {@link java.security.cert.X509Certificate#getSubjectDN()}).
  * <p>
  * The regular expression should contain a single group; for example the default expression "CN=(.*?)(?:,|$)" matches the
  * common name field. So "CN=Jimi Hendrix, OU=..." will give a user name of "Jimi Hendrix".

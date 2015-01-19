@@ -1,4 +1,4 @@
-package org.apache.shiro.web.filter.authc.x509;
+package org.apache.jena.fuseki.shiro.web.filter.authc.x509;
 
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -45,6 +45,9 @@ public class CustomRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
+
+        LOGGER.info("getting authentication info");
+
         if (usernamePasswordToken.getUsername() == null
                 || usernamePasswordToken.getUsername().isEmpty()) {
             throw new AuthenticationException("Authentication failed");

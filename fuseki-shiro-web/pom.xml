@@ -50,7 +50,7 @@
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-web</artifactId>
-            <version>1.2.2</version>
+            <version>1.2.1</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -96,5 +96,7 @@
             <version>[4.8.2,5.0.0)</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
+
 </project>

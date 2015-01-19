@@ -1,4 +1,4 @@
-package org.apache.shiro.web.filter.authc.x509;
+package org.apache.jena.fuseki.shiro.web.filter.authc.x509;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

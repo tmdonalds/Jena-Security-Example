@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.shiro.web.filter.authc.x509;
+package org.apache.jena.fuseki.shiro.web.filter.authc.x509;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
