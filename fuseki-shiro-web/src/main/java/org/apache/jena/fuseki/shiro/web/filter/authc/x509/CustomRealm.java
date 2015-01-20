@@ -1,10 +1,13 @@
 package org.apache.jena.fuseki.shiro.web.filter.authc.x509;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,6 +41,13 @@ public class CustomRealm extends AuthorizingRealm {
 
             SimpleAuthorizationInfo result = new SimpleAuthorizationInfo(
                     principal.getRoles());
+
+            if(!principal.getRoles().isEmpty()){
+                Subject currentUser = SecurityUtils.getSubject();
+                Session session = currentUser.getSession();
+                session.setAttribute( "hasRoles", Boolean.TRUE );
+            }
+
             return result;
         }
     }
@@ -68,6 +78,12 @@ public class CustomRealm extends AuthorizingRealm {
                 + usernamePasswordToken.getUsername());
 
         LOGGER.info(principal.toString());
+
+        if(!principal.getRoles().isEmpty()){
+            Subject currentUser = SecurityUtils.getSubject();
+            Session session = currentUser.getSession();
+            session.setAttribute( "hasRoles", Boolean.TRUE );
+        }
 
         return new SimpleAccount(principal.getUsername(),
                 X509AuthenticationFilter.PASSWORD_PLACEHOLDER, getName(), principal.getRoles(),

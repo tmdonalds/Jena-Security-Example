@@ -46,6 +46,19 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>apache-repo-snapshots</id>
+            <url>https://repository.apache.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.shiro</groupId>
@@ -57,6 +70,12 @@
             <artifactId>servlet-api</artifactId>
             <version>[2.5,3.0.0)</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-security</artifactId>
+            <version>2.12.2-SNAPSHOT</version>
         </dependency>
 
         <!-- Test dependencies -->
@@ -96,7 +115,6 @@
             <version>[4.8.2,5.0.0)</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
 </project>
