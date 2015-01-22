@@ -14,7 +14,7 @@ tdb:GraphTDB    rdfs:subClassOf  ja:Model .
 sec:Model       rdfs:subClassOf  ja:NamedModel .
 
 my:dataset rdf:type tdb:DatasetTDB;
-    tdb:location "/$FUSEKI_BASE/databases/myApp" ;
+    tdb:location "$FUSEKI_BASE/databases/myApp" ;
     tdb:unionDefaultGraph true ;
     .
 
@@ -25,23 +25,24 @@ my:baseModel rdf:type tdb:GraphTDB ;
 #my:modelA rdf:type tdb:GraphTDB ;
 #    tdb:dataset my:dataset ;
 #    tdb:graphName <http://example.org/serviceA> ;
+
 #    .
 
 #my:modelB rdf:type tdb:GraphTDB ;
 #    tdb:dataset my:dataset ;
 #    tdb:graphName <http://example.org/serviceB> ;
-#    .
+#    .   
 
 my:securedModel rdf:type sec:Model ;
     sec:baseModel my:baseModel ;
     ja:modelName "https://example.org/serviceA" ;
     sec:evaluatorImpl my:secEvaluator .
-
+  
 my:secEvaluator rdf:type sec:Evaluator ;
-    sec:args [
+    sec:args [  
         rdf:_1 my:baseModel ;
     ] ;
-    sec:evaluatorClass "org.apache.jena.fuseki.shiro.web.filter.authc.x509.MyAppSecurityEvaluator"
+    sec:evaluatorClass "org.apache.jena.fuseki.shiro.web.filter.authc.x509.MyAppSecurityEvaluator" 
 .
 
 my:securedDataset rdf:type ja:RDFDataset ;
@@ -64,7 +65,7 @@ my:fuseki rdf:type fuseki:Server ;
      my:service1
    ) .
 
-
+    
 my:service1 rdf:type fuseki:Service ;
     fuseki:name                       "myAppFuseki" ;       # http://host:port/modelA
     fuseki:serviceQuery               "query" ;    # SPARQL query service
