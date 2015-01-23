@@ -30,23 +30,24 @@ public class MyAppSecurityEvaluator implements SecurityEvaluator{
     }
 
     @Override
-    public boolean evaluate(Action action, SecNode secNode) {
+    public boolean evaluate(Object principal,Action action, SecNode secNode) {
         return true;
     }
 
     @Override
-    public boolean evaluate(Set<Action> actions, SecNode secNode) {
+    public boolean evaluate(Object principal, Set<Action> actions, SecNode secNode) {
         return true;
     }
 
     @Override
-    public boolean evaluate(Action action, SecNode secNode, SecTriple secTriple) {
+    public boolean evaluate(Object principal, Action action, SecNode secNode, SecTriple secTriple) {
+        LOGGER.info("OPTION A");
         if(SecTriple.ANY.equals(secTriple)){
             return false;
         }
 
         // call to Shiro to get the current user
-        Subject currentUser = SecurityUtils.getSubject();
+        Subject currentUser = (Subject) principal;
         // must set the session attribute in the web filter using session.setAttribute( "hasRoles", Boolean.TRUE ); if the user has any roles.
         Boolean hasRoles = (Boolean) currentUser.getSession().getAttribute( "hasRoles");
         if (hasRoles == null || ! hasRoles ) {
@@ -85,24 +86,24 @@ public class MyAppSecurityEvaluator implements SecurityEvaluator{
     }
 
     @Override
-    public boolean evaluate(Set<Action> actions, SecNode secNode, SecTriple secTriple) {
+    public boolean evaluate(Object principal, Set<Action> actions, SecNode secNode, SecTriple secTriple) {
         return true;
     }
 
     @Override
-    public boolean evaluateAny(Set<Action> actions, SecNode secNode) {
+    public boolean evaluateAny(Object principal,Set<Action> actions, SecNode secNode) {
         // TODO Auto-generated method stub
         return true;
     }
 
     @Override
-    public boolean evaluateAny(Set<Action> actions, SecNode secNode, SecTriple secTriple) {
+    public boolean evaluateAny(Object principal, Set<Action> actions, SecNode secNode, SecTriple secTriple) {
         // TODO Auto-generated method stub
-        return evaluate(Action.Read, secNode, secTriple);
+        return evaluate(principal,Action.Read, secNode, secTriple);
     }
 
     @Override
-    public boolean evaluateUpdate(SecNode secNode, SecTriple secTriple, SecTriple secTriple2) {
+    public boolean evaluateUpdate(Object principal,SecNode secNode, SecTriple secTriple, SecTriple secTriple2) {
         LOGGER.info("checking update evaluation");
         // TODO Auto-generated method stub
         return false;
@@ -110,8 +111,8 @@ public class MyAppSecurityEvaluator implements SecurityEvaluator{
 
 
     @Override
-    public Principal getPrincipal() {
+    public Subject getPrincipal() {
         // TODO Auto-generated method stub
-        return principal;
+        return SecurityUtils.getSubject();
     }
 }
