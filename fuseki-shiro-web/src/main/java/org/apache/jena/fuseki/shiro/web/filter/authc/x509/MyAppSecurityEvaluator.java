@@ -41,16 +41,19 @@ public class MyAppSecurityEvaluator implements SecurityEvaluator{
 
     @Override
     public boolean evaluate(Object principal, Action action, SecNode secNode, SecTriple secTriple) {
+        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+        System.out.println(stackTraceElements.length);
+
         LOGGER.info("OPTION A");
-        if(SecTriple.ANY.equals(secTriple)){
+        if (SecTriple.ANY.equals(secTriple)) {
             return false;
         }
 
         // call to Shiro to get the current user
         Subject currentUser = (Subject) principal;
         // must set the session attribute in the web filter using session.setAttribute( "hasRoles", Boolean.TRUE ); if the user has any roles.
-        Boolean hasRoles = (Boolean) currentUser.getSession().getAttribute( "hasRoles");
-        if (hasRoles == null || ! hasRoles ) {
+        Boolean hasRoles = (Boolean) currentUser.getSession().getAttribute("hasRoles");
+        if (hasRoles == null || !hasRoles) {
             return false;
         }
 
@@ -58,22 +61,22 @@ public class MyAppSecurityEvaluator implements SecurityEvaluator{
         Statement stmt = model.asStatement(triple);
         Resource resource = model.getAnyReifiedStatement(stmt);
 
-        Collection<String> tripleRoles = resource.listProperties(myAppRole).mapWith(new Map1<Statement,String>(){
+        Collection<String> tripleRoles = resource.listProperties(myAppRole).mapWith(new Map1<Statement, String>() {
             @Override
-            public String map1(Statement s){
+            public String map1(Statement s) {
                 return s.getObject().toString();
             }
         }).toSet();
 
-        if(tripleRoles.isEmpty()){
+        if (tripleRoles.isEmpty()) {
             LOGGER.warn("Didn't find any roles attached to this triple. Returning false.");
             return false;
         }
 
-        try{
-            currentUser.checkRoles( tripleRoles);
+        try {
+            currentUser.checkRoles(tripleRoles);
             LOGGER.info("Roles are valid");
-        } catch(AuthorizationException ex){
+        } catch (AuthorizationException ex) {
             LOGGER.info("Roles are not valid");
             //if authorizationException is thrown return false
             //checkRoles method is a void method
