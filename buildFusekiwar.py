@@ -21,3 +21,5 @@ shutil.copy(warSrcFile, fusekiWorkDir)
 
 for i in os.listdir(dstdir):
     os.system("jar -uf ./fuseki.war WEB-INF/lib/"+i)
+
+os.system("cp ./fuseki.war /home/trevor/servers/tomcat/apache-tomcat-7.0.57/webapps")
