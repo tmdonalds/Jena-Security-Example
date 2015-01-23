@@ -15,10 +15,6 @@ assert os.path.exists(warSrcFile)
 shutil.copy(srcfile, dstdir)
 shutil.copy(warSrcFile, fusekiWorkDir)
 
-#os.system("jar -uf ./fuseki.war WEB-INF/lib/fuseki-shiro-web-1.0-SNAPSHOT.jar")
-#os.system("jar -uf ./fuseki.war WEB-INF/lib/jena-security-2.12.2-SNAPSHOT.jar")
-#os.system("jar -uf ./fuseki.war WEB-INF/lib/commons-lang-2.6.jar")
-
 for i in os.listdir(dstdir):
     os.system("jar -uf ./fuseki.war WEB-INF/lib/"+i)
 
