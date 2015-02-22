@@ -5,6 +5,8 @@ import shutil
 
 basedir=os.getcwd()
 
+os.system("mvn clean package")
+
 workDir         = basedir + '/build/'
 cleanFusekiWar  = workDir + 'clean/fuseki.war'
 shiroExtJar     = basedir + '/fuseki-shiro-web/target/fuseki-shiro-web-1.0-SNAPSHOT.jar'

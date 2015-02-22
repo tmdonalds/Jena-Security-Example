@@ -1,0 +1,7 @@
+PREFIX ma: <urn:myApp>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+INSERT DATA
+{ GRAPH <http://example/A> {
+    TEMP_HOLDING
+  }
+}

@@ -15,7 +15,7 @@ sec:Model       rdfs:subClassOf  ja:NamedModel .
 
 my:dataset rdf:type tdb:DatasetTDB;
     tdb:location "/home/trevor/servers/fuseki/jena-fuseki-dist-2.0.0-SNAPSHOT/run/databases/myApp" ;
-    tdb:unionDefaultGraph true ;
+    ##tdb:unionDefaultGraph true ;
     .
 
 my:baseModel rdf:type tdb:GraphTDB ;

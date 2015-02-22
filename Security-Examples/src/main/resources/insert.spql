@@ -1,0 +1,5 @@
+INSERT DATA {
+  GRAPH <SM_GRAPH> {
+    <http://example.org/sample/s1> <urn:my:id> "hello"
+  }
+}

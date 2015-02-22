@@ -23,33 +23,16 @@ public class CustomRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        UsernamePasswordToken token = (UsernamePasswordToken) principalCollection.getPrimaryPrincipal();
+        MyPrincipal principal = (MyPrincipal) principalCollection.getPrimaryPrincipal();
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(principal.getRoles());
 
-        String username = token.getUsername();
-
-        // Find the thing that stores your user's roles.
-        MyPrincipal principal = myCustomService.findPrincipalByDn(token.getUsername());
-
-        if (principal == null) {
-            LOGGER.info("Principal not found for authorizing user with username: "
-                        + username);
-            return null;
-        } else {
-            LOGGER.info(String.format(
-                    "Authoriziong user %s with roles: %s", username,
-                    principal.getRoles()));
-
-            SimpleAuthorizationInfo result = new SimpleAuthorizationInfo(
-                    principal.getRoles());
-
-            if(!principal.getRoles().isEmpty()){
-                Subject currentUser = SecurityUtils.getSubject();
-                Session session = currentUser.getSession();
-                session.setAttribute( "hasRoles", Boolean.TRUE );
-            }
-
-            return result;
+        if (!principal.getRoles().isEmpty()) {
+            Subject currentUser = SecurityUtils.getSubject();
+            Session session = currentUser.getSession();
+            session.setAttribute("hasRoles", Boolean.TRUE);
         }
+
+        return info;
     }
 
     @Override
@@ -85,8 +68,9 @@ public class CustomRealm extends AuthorizingRealm {
             session.setAttribute( "hasRoles", Boolean.TRUE );
         }
 
-        return new SimpleAccount(principal.getUsername(),
-                X509AuthenticationFilter.PASSWORD_PLACEHOLDER, getName(), principal.getRoles(),
-                new HashSet());
+        return new SimpleAuthenticationInfo(principal,"NO-PASSWORD",getName());
+//        return new SimpleAccount(principal.getUsername(),
+//                X509AuthenticationFilter.PASSWORD_PLACEHOLDER, getName(), principal.getRoles(),
+//                new HashSet());
     }
 }

@@ -44,6 +44,14 @@ public class MyAppSecurityEvaluator implements SecurityEvaluator{
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
         System.out.println(stackTraceElements.length);
 
+        if(Action.Create.equals(action)){
+            return true;
+        }
+
+        if(Action.Delete.equals(action)){
+            return true;
+        }
+
         LOGGER.info("OPTION A");
         if (SecTriple.ANY.equals(secTriple)) {
             return false;
@@ -59,30 +67,36 @@ public class MyAppSecurityEvaluator implements SecurityEvaluator{
 
         Triple triple = EvaluatorUtil.convert(secTriple);
         Statement stmt = model.asStatement(triple);
-        Resource resource = model.getAnyReifiedStatement(stmt);
 
-        Collection<String> tripleRoles = resource.listProperties(myAppRole).mapWith(new Map1<Statement, String>() {
-            @Override
-            public String map1(Statement s) {
-                return s.getObject().toString();
+        System.out.println("checking reified statements");
+
+        if(model.isReified(stmt)){
+            System.out.println("reified statements");
+            Resource resource = model.getAnyReifiedStatement(stmt);
+
+            Collection<String> tripleRoles = resource.listProperties(myAppRole).mapWith(new Map1<Statement, String>() {
+                @Override
+                public String map1(Statement s) {
+                    return s.getObject().toString();
+                }
+            }).toSet();
+
+            if (tripleRoles.isEmpty()) {
+                LOGGER.warn("Didn't find any roles attached to this triple. Returning false.");
+                return false;
             }
-        }).toSet();
 
-        if (tripleRoles.isEmpty()) {
-            LOGGER.warn("Didn't find any roles attached to this triple. Returning false.");
-            return false;
-        }
-
-        try {
-            currentUser.checkRoles(tripleRoles);
-            LOGGER.info("Roles are valid");
-        } catch (AuthorizationException ex) {
-            LOGGER.info("Roles are not valid");
-            //if authorizationException is thrown return false
-            //checkRoles method is a void method
-            //https://shiro.apache.org/static/1.2.2/apidocs/org/apache/shiro/subject/Subject.html#checkRoles%28java.util.Collection%29
-            //
-            return false;
+            try {
+                currentUser.checkRoles(tripleRoles);
+                LOGGER.info("Roles are valid");
+            } catch (AuthorizationException ex) {
+                LOGGER.info("Roles are not valid");
+                //if authorizationException is thrown return false
+                //checkRoles method is a void method
+                //https://shiro.apache.org/static/1.2.2/apidocs/org/apache/shiro/subject/Subject.html#checkRoles%28java.util.Collection%29
+                //
+                return false;
+            }
         }
 
         return true;
@@ -108,8 +122,9 @@ public class MyAppSecurityEvaluator implements SecurityEvaluator{
     @Override
     public boolean evaluateUpdate(Object principal,SecNode secNode, SecTriple secTriple, SecTriple secTriple2) {
         LOGGER.info("checking update evaluation");
-        // TODO Auto-generated method stub
-        return false;
+        // TODO Auto-generated method stud
+        System.out.println("Jolly good show");
+        return true;
     }
 
 

@@ -1,0 +1,92 @@
+PREFIX ma: <urn:myApp>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+INSERT DATA
+{ GRAPH <http://example/tasks> {
+    <http://myapp/email/abc%40123.com> ma:value "abc@123.com" .
+    <http://myapp/email/abc%40123.com> ma:value "bbb@123.com" .
+    <http://myapp/email/abc%40123.com> ma:value "ccc@123.com" .
+    <http://myapp/email/abc%40123.com> ma:value "ddd@123.com" .
+    <http://myapp/email/abc%40123.com> ma:value "eee@123.com" .
+
+    <http://myapp/tasker/1>  ma:hasEmail  <http://myapp/email/abc%40123.com> .
+    <http://myapp/tasker/2>  ma:hasEmail  <http://myapp/email/abc%40123.com> .
+	<http://myapp/tasker/3>  ma:hasEmail  <http://myapp/email/bbb%40123.com> .
+	<http://myapp/tasker/4>  ma:hasEmail  <http://myapp/email/ccc%40123.com> .
+	<http://myapp/tasker/5>  ma:hasEmail  <http://myapp/email/ddd%40123.com> .
+	<http://myapp/tasker/6>  ma:hasEmail  <http://myapp/email/eee%40123.com> .
+
+    <http://myapp/tasker/1>  ma:name  "Trevor" .
+    <http://myapp/tasker/2>  ma:name  "AAAAA BBBB" .
+	<http://myapp/tasker/3>  ma:name  "CCCC DDDDD" .
+	<http://myapp/tasker/4>  ma:name  "EEEE FFFFF" .
+	<http://myapp/tasker/5>  ma:name  "GGGG HHHHH" .
+	<http://myapp/tasker/6>  ma:name  "IIII JJJJJ" .
+
+    <http://myapp/tasker/1>  ma:id  "1" .
+    <http://myapp/tasker/2>  ma:id  "2" .
+	<http://myapp/tasker/3>  ma:id  "3" .
+	<http://myapp/tasker/4>  ma:id  "4" .
+	<http://myapp/tasker/5>  ma:id  "5" .
+    <http://myapp/tasker/6>  ma:id  "6" .
+
+  []    a    <https://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+      "1" ;
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+      ma:id ;
+      <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+      <http://myapp/tasker/1> ;
+      <urn:myApp:role>"ROLE_A","ROLE_B"
+      .
+
+
+[]    a    <https://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+    "2" ;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+    ma:id ;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+    <http://myapp/tasker/2> ;
+    <urn:myApp:role>"ROLE_A","ROLE_B","ROLE_C"
+  .
+
+[]    a    <https://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+    "3" ;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+    ma:id ;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+    <http://myapp/tasker/3> ;
+    <urn:myApp:role>"ROLE_A","ROLE_B"
+  .
+
+[]    a    <https://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+    "4" ;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+    ma:id ;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+    <http://myapp/tasker/4> ;
+    <urn:myApp:role>"ROLE_B"
+  .
+
+[]    a    <https://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+    "5" ;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+    ma:id ;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+    <http://myapp/tasker/5> ;
+    <urn:myApp:role>"ROLE_A"
+  .
+
+[]    a    <https://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> ;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#object>
+    "6" ;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate>
+    ma:id ;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject>
+    <http://myapp/tasker/6> ;
+    <urn:myApp:role>"ROLE_C","ROLE_B"
+  }
+}
